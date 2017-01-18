@@ -2,7 +2,7 @@
 
 A no-dependency console.{log,error,..} replacement that outputs JSON bunyan compatible output to stderr & stdout
 
-**No configuration**, use process.env.LOG_LEVEL to ensure log output level.
+**No configuration**, use `process.env.LOG_LEVEL` to ensure log output level.
 
 ```javascript
 require('jsonconsole')();

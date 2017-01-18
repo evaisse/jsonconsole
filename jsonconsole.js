@@ -90,7 +90,8 @@ function write(src, lvl, obj) {
     var stack = null;
     var lvlInt = levels[lvl];
 
-    if (process.env.LOG_LEVEL && process.env.LOG_LEVEL > lvlInt) {
+    if (   typeof process.env.LOG_LEVEL == "string" 
+        && levels[process.env.LOG_LEVEL.toLowerCase()] > lvlInt) {
         return false;
     }
 
