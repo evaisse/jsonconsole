@@ -7,7 +7,10 @@ A no-dependency console.{log,error,..} replacement that outputs JSON bunyan comp
 ```javascript
 require('jsonconsole')();
 
-console.log('foo'); // will output JSON {"name":"myapp","hostname":"myhost","pid":64,"level":20,"msg":"foo","time":"2017-01-18T21:02:18.780+01:00","src":{"file":"test.js","line":10,"r":"/projects"},"levelName":"DEBUG","v":0}
+console.error('foo'); // will output JSON to STDERR (with err stack trace) 
+console.log('foo'); // will output JSON to STDOUT 
+// {"name":"myapp","hostname":"myhost","pid":64,"level":20,"msg":"foo","time":"2017-01-18T21:02:18.780+01:00","src":{"file":"test.js","line":10,"r":"/projects"},"levelName":"DEBUG","v":0}
+
 ```
 
 
@@ -35,11 +38,9 @@ console.log('Fooo');
 
 ```javascript
 let restoreConsole = require('./jsonconsole')();
-
-
 let err = new Error();
+let i = {};
 
-var i = {};
 i.i = i; // circular references are not JSON.stringify friendly
 
 console.log('foo', 'bar', i);

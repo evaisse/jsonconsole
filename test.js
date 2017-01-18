@@ -1,10 +1,7 @@
 let restoreConsole = require('./jsonconsole')();
-
-
 let err = new Error();
+let i = {};
 
-
-var i = {};
 i.i = i; // circular references are not JSON.stringify friendly
 
 console.log('foo', 'bar', i);
