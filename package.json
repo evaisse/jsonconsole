@@ -1,0 +1,28 @@
+{
+  "name": "jsonconsole",
+  "version": "1.0.0",
+  "description": "A nodejs console replacement that outputs JSON bunyan compatible output to stderr & stdout",
+  "main": "jsonconsole.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/evaisse/jsonconsole.git"
+  },
+  "keywords": [
+    "json",
+    "console",
+    "log",
+    "logger",
+    "bunyan",
+    "pino",
+    "trace"
+  ],
+  "author": "evaisse@gmail.com",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/evaisse/jsonconsole/issues"
+  },
+  "homepage": "https://github.com/evaisse/jsonconsole#readme"
+}
