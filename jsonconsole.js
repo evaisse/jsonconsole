@@ -11,6 +11,10 @@ var options = {
     v: 0,
 };
 
+function RawValue(o) { 
+    this.raw = o; 
+};
+
 function formatLocalDate(date) {
     var now = date ? date : new Date(),
         tzo = -now.getTimezoneOffset(),
@@ -89,6 +93,7 @@ function write(src, lvl, obj) {
 
     var stack = null;
     var lvlInt = levels[lvl];
+    var msg;
 
     if (   typeof process.env.LOG_LEVEL == "string" 
         && levels[process.env.LOG_LEVEL.toLowerCase()] > lvlInt) {
@@ -99,16 +104,29 @@ function write(src, lvl, obj) {
         stack = (obj instanceof Error) ? obj.stack : new Error().stack;
     }
 
+
+    if (obj instanceof RawValue) {
+        msg = util.inspect(obj.raw);
+    } else if (typeof obj == "string") {
+        msg = obj;
+    } else {
+        msg = util.inspect(obj);
+    }
+
     var log = {
         name: options.name,
         hostname,
         pid: process.pid,
         level: lvlInt,
-        msg: typeof obj == "string" ? obj : util.inspect(obj),
+        msg: msg,
         time: options.localDate ? formatLocalDate() : new Date().toISOString(),
         src: getCaller3Info(),        
         levelName: levelNames[lvlInt],
     };
+
+    if (obj instanceof RawValue) {
+        log.raw = obj.raw;
+    }
 
     stack = stack && options.root ? stack.replace(new RegExp(options.root, 'g'), '{root}') : stack;
     
@@ -168,7 +186,14 @@ function restore() {
     });
 }
 
-module.exports = function(userOptions) {
+
+
+/**
+ * Setup
+ * @param  {[type]} userOptions [description]
+ * @return {[type]}             [description]
+ */
+function setup(userOptions) {
 
     Object.assign(options, userOptions);
 
@@ -177,8 +202,8 @@ module.exports = function(userOptions) {
      */  
     if (!options.root) {
         try {
-            var p = require(path.dirname(getCaller3Info(1).file) + '/package.json');
-            options.root = path.dirname(getCaller3Info(1).file);
+            var p = require(path.dirname(process.mainModule.filename) + '/package.json');
+            options.root = path.dirname(process.mainModule.filename);
             options.name = p.name;
         } catch (e) {
             options.root = null;    
@@ -191,10 +216,13 @@ module.exports = function(userOptions) {
             options.name = p.name;
         } catch (e) {
         }
-
     }
 
     options.name = options.name || ".";
     replace();
     return restore;
-};
+}
+
+
+setup.RawValue = RawValue;
+module.exports = setup;
