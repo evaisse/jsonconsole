@@ -19,6 +19,12 @@ var util = require('util');
 
 
 
+function foo() {
+    console.error('from foo');
+}
+
+foo();
+
 
 let rawValue = new RawValue({
     a: 'Raw', value: [1,2,4]

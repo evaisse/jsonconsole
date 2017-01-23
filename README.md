@@ -20,9 +20,14 @@ That's it, now `console.log`, `console.info`, `console.debug`, and `console.warn
 `console.error` will output to `process.stderr`.
 
 ```javascript
-var restoreConsole = require('jsonconsole')();
+var  = require('jsonconsole').RawValue;
 
-console.log('Fooo');
+console.log(new RawValue({
+    a: 'Raw', value: [1,2,4]
+})); 
+/*
+    {"name":"jsonconsole","hostname":"Mac-mini-de-Emmanuel.local","pid":33000,"level":20,"msg":"{ a: 'Raw', value: [ 1, 2, 4 ] }","raw":{"a":"Raw","value":[1,2,4]},"time":"2017-01-19T19:00:48.144+01:00","src":{"file":"example.js","line":27,"r":"/Users/evaisse/Sites/projects/node-jsonconsole"},"levelName":"DEBUG","v":0}
+ */ 
 
 // restoreConsole(); to restore original console API.
 ```

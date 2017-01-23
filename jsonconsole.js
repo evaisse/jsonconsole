@@ -101,7 +101,7 @@ function write(src, lvl, obj) {
     }
 
     if (lvlInt >= 40) {
-        stack = (obj instanceof Error) ? obj.stack : new Error().stack;
+        stack = (obj instanceof Error) ? obj.stack : new Error().stack.split("\n").splice(1, 4).join("\n");
     }
 
 
