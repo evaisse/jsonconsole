@@ -101,7 +101,13 @@ function write(src, lvl, obj) {
     }
 
     if (lvlInt >= 40) {
-        stack = (obj instanceof Error) ? obj.stack : new Error().stack.split("\n").splice(1, 4).join("\n");
+        if (obj instanceof Error) {
+            stack = obj.stack;
+        } else {
+            stack = new Error().stack.split("\n");
+            stack.splice(1, 4); // obfuscate the trace inside the logger.
+            stack = stack.join('\n');
+        }
     }
 
 
