@@ -224,6 +224,13 @@ function setup(userOptions) {
         }
     }
 
+    /*
+        In production mode, define default log threshold to info
+     */
+    if (process.env.LOG_LEVEL === undefined && process.env.NODE_ENV === "production") {
+        process.env.LOG_LEVEL = "info";
+    }
+
     options.name = options.name || ".";
     replace();
     return restore;
