@@ -32,6 +32,22 @@ console.log(new RawValue({
 // restoreConsole(); to restore original console API.
 ```
 
+## env configuration
+
+you can use environment conf to 
+
+```
+# to forbid JSONCONSOLE to override default console
+JSONCONSOLE_DISABLE
+
+# to allow logging but with raw output
+JSONCONSOLE_DISABLE_JSON_OUTPUT 
+
+# to disable output logging < LOG_LEVEL
+# by default NODE_ENV=production will set this to LOG_LEVEL=info
+LOG_LEVEL=info,debug,error
+```
+
 
 ## Out-Of-The-Box Features
 

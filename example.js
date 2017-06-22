@@ -1,6 +1,6 @@
-const RawValue = require('./jsonconsole').RawValue;
-let rb = require('./jsonconsole')();
-let err = new Error();
+var RawValue = require('./jsonconsole').RawValue;
+var rb = require('./jsonconsole')();
+var err = new Error();
 let i = {};
 
 i.i = i; // circular references are not JSON.stringify friendly

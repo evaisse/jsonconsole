@@ -1,6 +1,6 @@
 {
   "name": "jsonconsole",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "A nodejs console replacement that outputs JSON bunyan compatible output to stderr & stdout",
   "main": "jsonconsole.js",
   "scripts": {

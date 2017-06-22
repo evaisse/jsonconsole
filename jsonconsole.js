@@ -100,6 +100,10 @@ function write(src, lvl, obj) {
         return false;
     }
 
+    if (process.env.JSONCONSOLE_DISABLE_JSON_OUTPUT) {
+        return src.write(util.format(obj)+os.EOL);
+    }
+
     if (lvlInt >= 40) {
         if (obj instanceof Error) {
             stack = obj.stack;
@@ -195,9 +199,9 @@ function restore() {
 
 
 /**
- * Setup
- * @param  {[type]} userOptions [description]
- * @return {[type]}             [description]
+ * Setup JSON console 
+ * @param  {Object} userOptions [description]
+ * @return {Function} a restore function that restore the behavior of classic console
  */
 function setup(userOptions) {
 
@@ -237,5 +241,16 @@ function setup(userOptions) {
 }
 
 
-setup.RawValue = RawValue;
-module.exports = setup;
+function api(opts) { 
+    if (process.env.JSONCONSOLE_DISABLE) {
+        return function() {};
+    } else {
+        return setup(opts);
+    }
+}
+
+api.RawValue = RawValue;
+
+
+
+module.exports = api;
